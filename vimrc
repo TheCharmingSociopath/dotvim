@@ -9,7 +9,12 @@ call plug#begin('~/.vim/plugged')
 
 " Codedark Theme
 Plug 'tomasiser/vim-code-dark'
-" Status/Tab line
+" Nord Color scheme
+Plug 'arcticicestudio/nord-vim'
+" Sonokai
+Plug 'sainnhe/sonokai'
+
+"Status/Tab line
 Plug 'vim-airline/vim-airline'
 " Themes for status bar
 Plug 'vim-airline/vim-airline-themes'
@@ -21,7 +26,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 Plug 'plasticboy/vim-markdown'
-" Plug 'lervag/vimtex'
+Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
 " File search, install pulls latest binary
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -121,11 +126,10 @@ let g:vim_markdown_json_frontmatter = 1
 let g:vim_markdown_strikethrough = 1
 
 " """"""""" VimTex
-" let g:tex_flavor='latex'
-" let g:vimtex_view_method='zathura'
-" let g:vimtex_quickfix_mode=0
-" set conceallevel=1
-" let g:tex_conceal='abdmg'
+let g:tex_flavor='latex'
+" let g:vimtex_view_method='evince'
+let g:vimtex_quickfix_mode=0
+let g:tex_conceal='abdmg'
 
 """""""""" vim-gitgutter
 " let g:gitgutter_highlight_linenrs = 1
@@ -152,16 +156,24 @@ set t_Co=256
 set termguicolors
 set background=dark
 
-colorscheme onedark
-
-" colorscheme codedark
-" " Make vim-code-dark work with airline
-" let g:airline_theme = 'codedark'
-
+""""""" Onedark """""""
 " from https://github.com/Mangeshrex/vim-dots/blob/main/vimrc
-highlight LineNr term=italic cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=#353b45 guibg=NONE
+" highlight LineNr term=italic cterm=NONE ctermfg=Grey ctermbg=NONE gui=NONE guifg=#353b45 guibg=NONE
+" colorscheme onedark
 
+""""""" Nord """""""
+" colorscheme nord
+" let g:airline_theme = 'nord'
+
+""""""" Codedark """""""
+" colorscheme codedark
 " Set default font for vim
+
+""""""" Sonokai """""""
+" andromeda, atlantis, shusia, maia, espresso
+" let g:sonokai_style = 'espresso'
+colorscheme sonokai
+
 set guifont=Menlo\ Regular:h18
 
 " Enable syntax highlighting

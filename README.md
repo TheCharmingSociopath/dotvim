@@ -6,3 +6,10 @@ Colors taken from [Mangeshrex](https://github.com/Mangeshrex/vim-dots)
 
 Still need to work on the Vimtex and snippets setup. [(This beauty)](https://castel.dev/post/lecture-notes-1/)
 
+## Todo
+
+- Separate directory for swap files
+- Check out the BT with colors
+- Snippets
+- Indent highlight
+
