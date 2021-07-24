@@ -140,9 +140,8 @@ let g:VM_mouse_mappings = 1
 
 
 """""""""" FZF Related
-nnoremap ff :Files<CR>
-nnoremap fzf :FZF
-nnoremap bb :Buffers<CR>
+nnoremap <leader>f :Files<CR>
+nnoremap <leader>b :Buffers<CR>
 
 """""""""" auto-pairs related
 let g:AutoPairsFlyMode = 1
@@ -291,13 +290,13 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 noremap <silent><CR><CR><CR> :noh<CR>
 
 " Tab and Buffer Navigation
-nnoremap <leader>b :ed
 nnoremap <leader>p :bp<CR>
 nnoremap <leader>n :bn<CR>
+" Close buffer
+nnoremap <C-w> :bd<CR>
 
 " previous buffer
-nnoremap <leader>5 :b#<CR>
-nnoremap <silent> <leader>w :w<CR>
+nnoremap <leader><Tab> :b#<CR>
 
 """""""""""""""
 """"""""""""""""""""" coc autocomplete """"""""""""""""""""""
@@ -390,8 +389,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -470,7 +469,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 """""""""" coc-extensions """""""""""""
-let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', ]
+let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', 'coc-texlab']
 
 """" coc-css
 " @ is a keyword
