@@ -1,30 +1,28 @@
-set nocompatible
 
 " Disable filetype for Vundle
 filetype off
 
 set runtimepath^=~/.vim
 
+set nocompatible
 call plug#begin('~/.vim/plugged')
 
-" Codedark Theme
-Plug 'tomasiser/vim-code-dark'
 " Nord Color scheme
 Plug 'arcticicestudio/nord-vim'
 " Sonokai
 Plug 'sainnhe/sonokai'
-
 "Status/Tab line
 Plug 'vim-airline/vim-airline'
 " Themes for status bar
 Plug 'vim-airline/vim-airline-themes'
-Plug 'preservim/nerdtree' " Tree file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin' " Git status for NERDTree
+" Tree file explorer
+Plug 'preservim/nerdtree'
+" Git status for NERDTree
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
-Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 Plug 'plasticboy/vim-markdown'
 Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
@@ -33,6 +31,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
+Plug 'honza/vim-snippets'
+Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 
 call plug#end()
 
@@ -41,10 +41,10 @@ filetype plugin indent on
 let mapleader = ","
 let g:mapleader = ","
 
-if &term == "alacritty"
-  let &term = "xterm-256color"
-endif
-
+" if &term == "alacritty"
+"   let &term = "xterm-256color"
+" endif
+"
 """"""""
 """""""""""""" Plugin Specific Changes """"""""""""""""""""
 """"""""
@@ -164,13 +164,11 @@ set background=dark
 " colorscheme nord
 " let g:airline_theme = 'nord'
 
-""""""" Codedark """""""
-" colorscheme codedark
-" Set default font for vim
-
 """"""" Sonokai """""""
 " andromeda, atlantis, shusia, maia, espresso
 " let g:sonokai_style = 'espresso'
+let g:sonokai_diagnostic_line_highlight = 1
+let g:sonokai_better_performance = 1
 colorscheme sonokai
 
 set guifont=Menlo\ Regular:h18
@@ -251,7 +249,7 @@ set autoread
 set modifiable
 
 "Performance improvements
-set synmaxcol=200 "Don't bother highlighting anything over 200 chars
+set synmaxcol=400 "Don't bother highlighting anything over 400 chars
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -263,9 +261,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 set mouse=a
 
 " use system clipboard
-set clipboard+=unnamedplus
 set clipboard=unnamedplus
-"
+
 """""""
 """""""""""""" Key Bindings """"""""""""""""""""""
 """""""
@@ -345,6 +342,8 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -469,7 +468,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 """""""""" coc-extensions """""""""""""
-let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', 'coc-texlab']
+let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', 'coc-texlab', 'coc-snippets']
 
 """" coc-css
 " @ is a keyword
