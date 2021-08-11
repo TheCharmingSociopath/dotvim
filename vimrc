@@ -23,7 +23,6 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'ryanoasis/vim-devicons'
 Plug 'preservim/nerdcommenter'
-Plug 'plasticboy/vim-markdown'
 Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
 " File search, install pulls latest binary
@@ -33,6 +32,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
+Plug 'SidOfc/mkdx'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
@@ -116,8 +118,10 @@ let g:webdevicons_enable_airline_statusline = 1
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 " let g:WebDevIconsOS = 'Ubuntu'
 
-""""""""" PLasticboy Markdown
+" """"""""" PLasticboy Markdown
 set conceallevel=2
+let g:vim_markdown_new_list_item_indent = 0
+let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_conceal = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
@@ -146,6 +150,27 @@ nnoremap <leader>b :Buffers<CR>
 """""""""" auto-pairs related
 let g:AutoPairsFlyMode = 1
 
+"""""""""" Tabular """"""""""
+""" Automatically trigger tabularize """
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
+
+"""""""" mkdx """"""""
+let g:mkdx#settings     = { 'highlight': { 'enable': 1 },
+                        \ 'enter': { 'shift': 1 },
+                        \ 'links': { 'external': { 'enable': 1 } },
+                        \ 'toc': { 'text': 'Table of Contents', 'update_on_write': 1 },
+                        \ 'fold': { 'enable': 1 } }
 
 """""""""
 """""""""" Appearance and Text"""""""""""
@@ -249,7 +274,7 @@ set autoread
 set modifiable
 
 "Performance improvements
-set synmaxcol=400 "Don't bother highlighting anything over 400 chars
+" set synmaxcol=400 "Don't bother highlighting anything over 400 chars
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -271,6 +296,8 @@ set clipboard=unnamedplus
 inoremap <C-d> <esc>ddi
 " Uppercase Previous word
 inoremap <C-u> <esc>vbU<esc><end>i
+" use Ctrl+O in insert mode to insert new line
+inoremap <C-o> <esc>o
 
 " In normal mode or in insert mode, press Alt-j to move the current line down, or press Alt-k to move the current line up.
 " After visually selecting a block of lines (for example, by pressing V then moving the cursor down), press Alt-j to move the whole block down, or press Alt-k to move the block up.
@@ -313,6 +340,7 @@ set cmdheight=2
 " delays and poor user experience.
 set updatetime=300
 
+let g:vim_markdown_auto_insert_bullets = 0
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -327,6 +355,7 @@ endif
 
 "" Setting to yes for vim gitgutter, so that it shows both line numbers and
 "git status
+let g:vim_markdown_auto_insert_bullets = 0
 " set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -468,7 +497,7 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 
 """""""""" coc-extensions """""""""""""
-let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', 'coc-texlab', 'coc-snippets']
+let g:coc_global_extensions = ['coc-clangd', 'coc-html', 'coc-prettier', 'coc-css', 'coc-json', 'coc-jedi', 'coc-texlab', 'coc-snippets', 'coc-highlight', 'coc-syntax', 'coc-emoji', 'coc-dictionary']
 
 """" coc-css
 " @ is a keyword
