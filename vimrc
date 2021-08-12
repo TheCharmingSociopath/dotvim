@@ -28,13 +28,12 @@ Plug 'airblade/vim-gitgutter'
 " File search, install pulls latest binary
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
-Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', { 'branch' : 'release' }
-Plug 'SidOfc/mkdx'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -118,10 +117,8 @@ let g:webdevicons_enable_airline_statusline = 1
 let g:WebDevIconsUnicodeGlyphDoubleWidth = 1
 " let g:WebDevIconsOS = 'Ubuntu'
 
-" """"""""" PLasticboy Markdown
+" """"""""" Plasticboy Markdown
 set conceallevel=2
-let g:vim_markdown_new_list_item_indent = 0
-let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_conceal = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
@@ -164,13 +161,6 @@ function! s:align()
     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
   endif
 endfunction
-
-"""""""" mkdx """"""""
-let g:mkdx#settings     = { 'highlight': { 'enable': 1 },
-                        \ 'enter': { 'shift': 1 },
-                        \ 'links': { 'external': { 'enable': 1 } },
-                        \ 'toc': { 'text': 'Table of Contents', 'update_on_write': 1 },
-                        \ 'fold': { 'enable': 1 } }
 
 """""""""
 """""""""" Appearance and Text"""""""""""
@@ -340,7 +330,6 @@ set cmdheight=2
 " delays and poor user experience.
 set updatetime=300
 
-let g:vim_markdown_auto_insert_bullets = 0
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
@@ -353,9 +342,7 @@ else
   set signcolumn=yes
 endif
 
-"" Setting to yes for vim gitgutter, so that it shows both line numbers and
-"git status
-let g:vim_markdown_auto_insert_bullets = 0
+"" Setting to yes for vim gitgutter, so that it shows both line numbers and git status
 " set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -515,4 +502,23 @@ autocmd FileType cpp nnoremap     <leader>rr    :!./%:r<CR>
 autocmd FileType cpp nnoremap     <leader>rt    :!for f in %:r.*.test; do echo "TEST: $f"; ./%:r < $f; done<CR>
 autocmd BufNewFile  *.cp.cpp 0r ~/.vim/templates/cp_cpp_template.cpp
 
+""""""" Persistent Undo Source: https://sidneyliebrand.io/blog/vim-tip-persistent-undo  """""""
+
+" guard for distributions lacking the persistent_undo feature.
+if has('persistent_undo')
+    " define a path to store persistent_undo files.
+    let target_path = expand('~/.vim/vim-persisted-undo/')
+
+    " create the directory and any parent directories
+    " if the location does not exist.
+    if !isdirectory(target_path)
+        call system('mkdir -p ' . target_path)
+    endif
+
+    " point Vim to the defined undo directory.
+    let &undodir = target_path
+
+    " finally, enable undo persistence.
+    set undofile
+endif
 
