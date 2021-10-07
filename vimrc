@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'honza/vim-snippets'
+Plug 'mhinz/vim-startify'
 
 call plug#end()
 
@@ -307,7 +308,7 @@ noremap <silent><CR><CR><CR> :noh<CR>
 nnoremap <leader>p :bp<CR>
 nnoremap <leader>n :bn<CR>
 " Close buffer
-nnoremap <C-w> :bd<CR>
+nnoremap <leader>w :bd<CR>
 
 " previous buffer
 nnoremap <leader><Tab> :b#<CR>
